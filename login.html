@@ -1,0 +1,44 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>登录</title>
+        <script src="/js/jquery-1.12.3.min.js"></script>
+    </head>
+
+    <body>
+        <form id="formLogin">
+            用户名: <input type="text" id="name"><br>
+            密码: <input type="password" id="password">
+
+            <input type="submit" id="login" value="登录">
+        </form> 
+
+        <script>
+            $("#formLogin").submit(function(event) {
+                event.preventDefault();
+
+                var info = {
+                    name: $("#name").val(),
+                    password: $("#password").val()
+                };
+
+                console.log(JSON.stringify(info));
+
+                $.ajax({
+                    url: "http://192.168.1.104:3000/formLogin",
+                    method: "GET",
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: info,
+                    success: function(data, textStatus, xhr) {
+                        if(xhr.status == 200) {
+                            alert("登录成功");
+                            window.location = "http://192.168.1.104:3000/home";
+                        }
+                    }
+
+                });
+            });
+        </script>
+    </body>
+</html>

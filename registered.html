@@ -6,12 +6,39 @@
     </head>
 
     <body>
-        <form action="http://localhost:3000/registered" method="POST">
+        <form id="registered">
 
-            用户名:<input type="text" name="name"><br>
-            密码: <input type="password" name="password">
+            用户名:<input type="text" name="name" id="name"><br>
+            密码: <input type="password" name="password" id="password">
             <input type="submit" value="Submit">
         </form>
+
+        <script>
+            $("#registered").submit(function(event) {
+                event.preventDefault();
+                var info = {
+                    "name": $("#name").val(),
+                    "password": $("#password").val()
+                };
+                
+
+                $.ajax({
+                    url: "http://192.168.1.104:3000/registered",
+                    method: "POST",
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: JSON.stringify(info),
+                    success: function(data, textStatus, xhr) {
+                        console.log(data);
+                        console.log(textStatus);
+                        console.log(xhr);
+                        if(xhr.status == 200) {
+                            console.log("xxxxxxxx");
+                        } 
+                    }
+                });
+            });
+        </script>
 
     </body>
 </html>
